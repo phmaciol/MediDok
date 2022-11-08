@@ -1,0 +1,59 @@
+
+
+
+
+
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load bootstrap %}
+ {% block style %}
+
+
+ {% endblock %}
+
+{% block navbar %}
+
+
+                <div class="nav_list"> <a href="#" class="nav_link "> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Strona Główna</span> </a>
+                    <a href="{% url 'organization' %}" class="nav_link active"> <i class='bx bx-plus-medical nav_icon'></i> <span class="nav_name">Zarejestruj wizytę</span> </a>
+                    <a href="{% url 'e_systemREC' %}" class="nav_link "> <i class='bx bx-capsule nav_icon'></i> <span class="nav_name">Recepty</span> </a>
+                    <a href="{% url 'e_systemREC' %}" class="nav_link"> <i class='bx bx-donate-heart nav_icon'></i> <span class="nav_name">Skierowania</span> </a>
+                    <a href="{% url 'visit' %}" class="nav_link  "> <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Przegląd wizyt</span> </a>
+                    <a href="{% url 'upload' %}" class="nav_link"> <i class='bx bx-folder nav_icon'></i> <span class="nav_name">Dokumenty</span> </a>
+                    <a href="{% url 'editprofile' %}" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Profil</span> </a>
+                    </div>
+{% endblock navbar %}
+
+
+{% block content %}
+
+
+ {% for message in messages %}
+                <p id="message">{{ message }}</p>
+
+            {% endfor %}
+
+
+    <h3 style="text-align: center;"class="card-title">Poradnie ogólne</h3>
+    <div style="text-align: center;">
+        <img style="width: 450px; margin: auto;" src="{% static 'image/clinic.jpg' %}" class="card-img-top" alt="...">
+    </div>
+<div style="text-align: center">
+    {% if doc_count == 1 %}
+        <h2> <i class='bx bxs-brightness bx-rotate-90 bx-spin' style='color:#f65909'  ></i>Twoja deklaracja jest w trakcie autoryzacji </h2>
+        <h5>Data przesłania deklaracji {{ doc_dekl.publish_date }}</h5>
+
+      {% else %}
+         <h2><i class='bx bx-notification-off bx-flashing' style='color:#f60404' ></i>Brak złożonej deklaracji aby kontynuować prześlij deklarację</h2>
+        <a href="{% url 'dekl' %}" type="button" class="btn btn-outline-primary"><i class='bx bxs-folder-plus bx-flashing' style='color:#f60404; font-size: 24px;' ></i> <br/> <b>Prześlij deklarcję</b></a>
+        {% endif %}
+
+
+
+</div>
+
+
+
+
+{% endblock content %}

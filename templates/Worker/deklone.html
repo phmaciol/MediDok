@@ -1,0 +1,88 @@
+{% extends "Worker/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block style %}
+        <link rel="stylesheet" href="{% static 'style/style02.css' %}">
+
+{% endblock %}
+{% block navbar %}
+
+
+               <div class="nav_list"> <a href="{% url 'showdekl' %}" class="nav_link active "> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Deklaracje</span> </a>
+                    <a href="{% url 'add_form' %}" class="nav_link"> <i class='bx bxs-file-plus nav_icon'></i> <span class="nav_name">Dodaj formularz</span> </a>
+                    <a href="{% url 'deklPERS' %}" class="nav_link"> <i class='bx bxs-file-pdf nav_icon' ></i> <span class="nav_name">Formularze</span> </a>
+                    <a href="{% url 'doc_show' %}" class="nav_link"> <i class='bx bxs-file-doc nav_icon' ></i> <span class="nav_name">Dokumenty</span> </a>
+                    <a href="{% url 'visit_per' %}" class="nav_link"> <i class='bx bx-table nav_icon'></i> <span class="nav_name">Rejestr wizyt</span> </a>
+                    <a href="{% url 'editper' %}" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Profil</span> </a>
+                    </div>
+{% endblock navbar %}
+{% block content %}
+    <br/>
+    <br/>
+    {% for x in show %}
+    <a type="button" href="{% url 'formsPERS' pk=x.patient_person.id %}" class="btn btn-success"  >Inne formularze pacjenta</a>
+    <a type="button" href="{%  url 'docPERS' pk=x.patient_person.id %}" class="btn btn-info"  >Inne dokumenty pacjenta</a>
+    <div style="text-align: center; padding-top: 5%">
+
+    <h2 style="text-align: center"> Formularz pacjenta <b>{{ x.patient_person.first_name }} {{ x.patient_person.last_name }}</b></h2>
+      <div class="d-grid gap-2">    <a type="button" href="/media/{{ x.file }}" class="btn btn-success"  >Pobierz dokument</a>
+
+        <h2> Pesel: {{ x.patient_person.pesel }}</h2>
+        <div class="form-group">
+<div class="row">
+    <div style="text-align: center" class="col">
+        <h5><form method="post">{% csrf_token %}<b>{{ form|crispy }}</b><br/> <input type="submit" name="one" class="btn btn-info"  value="Zmień status"></form></h5>
+  </div>
+      <div style="text-align: center" class="col">
+          <h5>Data przesłania <b>{{ x.publish_date }}</b></h5>
+
+  </div>
+    <div style="text-align: center" class="col">
+          <h5>Rodzaj dokumentu <b>{{ x.get_type_forms_display  }}</b></h5>
+
+  </div>
+<hr/>
+</div>
+  </div>
+        <div class="form-group">
+<div class="row">
+    <div style="text-align: center" class="col">
+        <h3>Uwagi pacjenta</h3>
+        <hr/>
+      <span>{{ x.remarks_user }}</span>
+  </div>
+      <div style="text-align: center" class="col">
+
+          <form method="post">
+              {% csrf_token %}
+              <span>{{ forms|crispy }}</span>
+              <input type="submit" name="two" class="btn btn-info"  value="Zapisz">
+          </form>
+
+  </div>
+
+</div>
+  </div>
+        {% if x.type_forms == '0' %}
+
+        <div class="d-grid gap-2">    <a type="button" href="{% url 'deklREJ' pk=x.patient_person.id pi=x.id %}" class="btn btn-outline-success"  >Zarejestruj deklaracje</a>
+        {% endif %}
+    {% endfor %}
+
+    </div>
+
+
+
+
+
+
+{% endblock content %}
+{% block extrascripts %}
+
+    <script type="text/javascript" src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/plugins/dataTables.bootstrap.min.js' %}"></script>
+
+    <script type="text/javascript">$('#sampleTable').DataTable();</script>
+
+{% endblock extrascripts %}

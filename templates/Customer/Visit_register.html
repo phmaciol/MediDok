@@ -1,0 +1,146 @@
+
+
+
+
+
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load bootstrap %}
+ {% block style %}
+
+ {% endblock %}
+
+{% block navbar %}
+
+
+                <div class="nav_list"> <a href="#" class="nav_link "> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Strona Główna</span> </a>
+                    <a href="{% url 'organization' %}" class="nav_link active"> <i class='bx bx-plus-medical nav_icon'></i> <span class="nav_name">Zarejestruj wizytę</span> </a>
+                    <a href="{% url 'e_systemREC' %}" class="nav_link "> <i class='bx bx-capsule nav_icon'></i> <span class="nav_name">Recepty</span> </a>
+                    <a href="{% url 'e_systemSKIER' %}" class="nav_link"> <i class='bx bx-donate-heart nav_icon'></i> <span class="nav_name">Skierowania</span> </a>
+                    <a href="{% url 'visit' %}" class="nav_link  "> <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Przegląd wizyt</span> </a>
+                    <a href="{% url 'upload' %}" class="nav_link"> <i class='bx bx-folder nav_icon'></i> <span class="nav_name">Dokumenty</span> </a>
+                    <a href="{% url 'editprofile' %}" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Profil</span> </a>
+                    </div>
+{% endblock navbar %}
+
+
+{% block content %}
+
+
+    <h1 style="text-align: center"><i class='bx bxs-analyse bx-spin' style='color:#4723d9' ></i> Rejestrujesz wizytę na termin {{ term.get_work_day_display }} {{ term.work_date }} na godzinę {{ term.work_time }}  </h1>
+{% for message in messages %}
+                <h3 id="message">{{ message }}</h3>
+{% endfor %}
+<form method="post">
+{% csrf_token %}
+            <fieldset disabled>
+                <div class="form-group">
+                    <div class="row">
+                         <div class="col">
+                             <label>{{ forms.patient_user.label }}</label>
+                             {{ forms.patient_user }}
+                        </div>
+                    <div class="col">
+                  <label>{{ forms.patient_person.label }}</label>
+                      {{ forms.patient_person}}
+                    </div>
+                </div>
+            </div>
+{#-------------------------------------------------------------------------------#}
+
+
+                <div class="form-group">
+                <div class="row">
+
+                      <div class="col">
+                             <label>{{ forms.organization.label }}</label>
+                             {{ forms.organization }}
+                        </div>
+                          <div class="col">
+                             <label>{{ forms.struct.label }}</label>
+                             {{ forms.struct }}
+                        </div>
+
+                         <div class="col">
+                        <label>{{ forms.unity.label }}</label>
+                            {{ forms.unity }}
+                        </div>
+
+                </div>
+            </div>
+</fieldset>
+            <fieldset style="display: none">
+                <div class="form-group">
+                    <div class="row">
+                         <div class="col">
+                             <label>{{ forms.patient_user.label }}</label>
+                             {{ forms.patient_user }}
+                        </div>
+                    <div class="col">
+                  <label>{{ forms.patient_person.label }}</label>
+                      {{ forms.patient_person}}
+                    </div>
+                </div>
+            </div>
+{#-------------------------------------------------------------------------------#}
+
+
+                <div class="form-group">
+                <div class="row">
+
+                      <div class="col">
+                             <label>{{ forms.organization.label }}</label>
+                             {{ forms.organization }}
+                        </div>
+                          <div class="col">
+                             <label>{{ forms.struct.label }}</label>
+                             {{ forms.struct }}
+                        </div>
+
+                         <div class="col">
+                        <label>{{ forms.unity.label }}</label>
+                            {{ forms.unity }}
+                        </div>
+
+                </div>
+            </div>
+</fieldset>
+    <div class="form-group">
+                    <div class="row">
+                         <div class="col">
+                             <label>{{ forms.key.label }}</label>
+                             {{ forms.key }}
+                        </div>
+
+                </div>
+            </div>
+
+<div class="form-group">
+                    <div class="row">
+                         <div class="col">
+                             <label>{{ forms.description.label }}</label>
+                             {{ forms.description }}
+                        </div>
+
+                </div>
+            </div>
+
+
+<div class="d-grid gap-2">    <input type="submit" class="btn btn-outline-success" value="Zarejestruj"></div>
+
+</form>
+
+{% endblock content %}
+{% block extrascripts %}
+
+    <script type="text/javascript" src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/plugins/dataTables.bootstrap.min.js' %}"></script>
+
+    <script type="text/javascript">$('#sampleTable').DataTable();</script>
+
+{% endblock extrascripts %}
+
+
+
+

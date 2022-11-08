@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+{% block navbar %}
+
+
+                <div class="nav_list"> <a href="#" class="nav_link "> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Strona Główna</span> </a>
+                    <a href="{% url 'organization' %}" class="nav_link"> <i class='bx bx-plus-medical nav_icon'></i> <span class="nav_name">Zarejestruj wizytę</span> </a>
+                    <a href="{% url 'e_systemREC' %}" class="nav_link"> <i class='bx bx-capsule nav_icon'></i> <span class="nav_name">Recepty</span> </a>
+                    <a href="{% url 'e_systemSKIER' %}" class="nav_link"> <i class='bx bx-donate-heart nav_icon'></i> <span class="nav_name">Skierowania</span> </a>
+                    <a href="{% url 'visit' %}" class="nav_link"> <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Przegląd wizyt</span> </a>
+                    <a href="{% url 'upload' %}" class="nav_link"> <i class='bx bx-folder nav_icon'></i> <span class="nav_name">Dokumenty</span> </a>
+                    <a href="{% url 'editprofile' %}" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Profil</span> </a>
+                    </div>
+{% endblock navbar %}
+{% block content %}
+    <h1 style="text-align: center; color: #212121"><b>MedikoDOC</b> </h1>
+    <h1 style="text-align: center; color: #212121">Witaj w Panelu Pacjenta</h1>
+{% for message in messages %}
+                <p id="message">{{ message }}</p>
+
+            {% endfor %}
+
+
+
+<br>
+
+<div class="row g-1">
+    <div class="col-4">
+        <div class="col-content"> <a href="{% url 'visit' %}"> <div class="card" >
+  <img src="{% static 'image/med.jpg' %}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Twoje WIZYTY</h5>
+  </div></div></a></div>
+    </div>
+    <div class="col-4">
+        <div class="col-content"> <a href="{% url 'e_systemREC' %}"> <div class="card" >
+  <img src="{% static 'image/leka.jpg' %}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Twoje E-RECEPTY</h5>
+  </div></div></a></div>
+    </div>
+    <div class="col-4">
+        <div class="col-content"> <a href="{% url 'e_systemSKIER' %}"> <div class="card" >
+  <img src="{% static 'image/skie.jpg' %}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Twoje E-SKIEROWANIA</h5>
+  </div></div></a></div>
+    </div>
+    <!-- ... other columns -->
+</div>
+
+
+{%  csrf_token %}
+    {{ result }}
+{% endblock content %}

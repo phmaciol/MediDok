@@ -1,0 +1,112 @@
+
+
+
+
+
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load bootstrap %}
+ {% block style %}
+
+
+ {% endblock %}
+
+{% block navbar %}
+
+
+                <div class="nav_list"> <a href="#" class="nav_link "> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Strona Główna</span> </a>
+                    <a href="{% url 'register_visit' %}" class="nav_link active"> <i class='bx bx-plus-medical nav_icon'></i> <span class="nav_name">Zarejestruj wizytę</span> </a>
+                    <a href="{% url 'e_systemREC' %}" class="nav_link "> <i class='bx bx-capsule nav_icon'></i> <span class="nav_name">Recepty</span> </a>
+                    <a href="{% url 'e_systemSKIER' %}" class="nav_link"> <i class='bx bx-donate-heart nav_icon'></i> <span class="nav_name">Skierowania</span> </a>
+                    <a href="{% url 'visit' %}" class="nav_link  "> <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Przegląd wizyt</span> </a>
+                    <a href="{% url 'upload' %}" class="nav_link"> <i class='bx bx-folder nav_icon'></i> <span class="nav_name">Dokumenty</span> </a>
+                    <a href="{% url 'editprofile' %}" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Profil</span> </a>
+                    </div>
+{% endblock navbar %}
+
+
+{% block content %}
+
+
+
+
+
+<div class="row g-1">
+    {% for x in show %}
+
+        <h1 class="text-center">Świadczeniodawca <b>{{ x.name }} </b> </h1>
+        <h2 class="text-center"> <b>{{ x.oddz_nfz }} </b> </h2>
+
+
+
+
+
+
+
+        <table class="table table-sm">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nip</th>
+      <th scope="col">Regon</th>
+      <th scope="col">KRS</th>
+      <th scope="col">Numer księgi resortowej</th>
+      <th scope="col">Numer świadczeniodawcy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>{{ x.nip }}</td>
+      <td>{{ x.regon }}</td>
+       <td >{{ x.krs }}</td>
+       <td >{{ x.number_resort }}</td>
+       <td >{{ x.number_swiat }}</td>
+    </tr>
+
+
+</table>
+    {% endfor %}
+
+        <table class="table table-sm">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nazwa placówki </th>
+      <th scope="col">Miasto</th>
+      <th scope="col">Ulica</th>
+      <th scope="col">Numer budynku</th>
+      <th scope="col">Numer</th>
+      <th scope="col">Numer telefonu</th>
+      <th scope="col">E-mail</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+          <tbody>
+            {% for y in show_struct %}
+
+    <tr>
+
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{ y.name }}</td>
+      <td>{{ y.city }}</td>
+      <td>{{ y.adress1 }}</td>
+      <td>{{ y.adress2 }}</td>
+      <td>{{ y.adress3 }}</td>
+      <td>{{ y.phone }}</td>
+      <td>{{ y.mail }}</td>
+      <td><a href="#" class="btn btn-outline-primary">Wizyty</a></td>
+      <td><a href="#" class="btn btn-outline-primary">Specjaliści</a></td>
+
+
+    </tr>
+
+ {% endfor %}
+ </tbody>
+</table>
+
+</div>
+
+{% endblock content %}

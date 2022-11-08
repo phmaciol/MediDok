@@ -1,0 +1,21 @@
+{% extends "LEKARZ/base.html" %}
+{% load static %}
+{% block style %}
+        <link rel="stylesheet" href="{% static 'style/style02.css' %}">
+
+{% endblock %}
+{% block navbar %}
+
+
+                    <a href="{% url 'placeform' %}" class="nav_link "> <i class='bx bx-plus-medical nav_icon'></i> <span class="nav_name">Mini Gabinet</span> </a>
+                   <a href="{% url 'editlek' %}" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Profil</span> </a>
+
+{% endblock navbar %}
+{% block content %}
+    <h1 style="text-align: center; color: #212121"><b>MedikoDOC</b> </h1>
+    <h1 style="text-align: center; color: #212121">Witaj w Panelu Lekarza</h1>
+<hr/>
+
+
+
+{% endblock content %}

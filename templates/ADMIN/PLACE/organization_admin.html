@@ -1,0 +1,46 @@
+{% extends "ADMIN/Base_admin.html" %}
+{% load static %}
+{% block navbar %}
+
+ <div class="nav_list"> <a href="{% url 'orga_admin' %}" class="nav_link active"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Rejest podmiotu</span> </a>
+                    <a href="{% url 'term_gen' %}" class="nav_link"> <i class='bx bx-plus-medical nav_icon'></i> <span class="nav_name">Generuj terminarz</span> </a>
+                    <a href="{% url 'users_web' %}" class="nav_link"> <i class='bx bxs-user-detail nav_icon'></i> <span class="nav_name">Personel</span> </a>
+
+                    </div>
+{% endblock navbar %}
+{% block content %}
+    <h1 style="text-align: center; color: #212121"><b>MedikoDOC</b> </h1>
+    <h1 style="text-align: center; color: #212121">Admnistrator</h1>
+
+
+
+
+<br>
+
+<div class="form-group">
+<h2 style="text-align: center; color: #212121">Rejest podmiotów leczniczych</h1>
+<div class="row">
+    <div style="text-align: center" class="col">
+
+    <a type="button" href="{% url 'orga_admin_tabs' %}" class="btn btn-primary btn-lg"> <i  class='bx bxs-home-alt-2 bx-flashing' style='color:#ff0000; font-size: 100px' ></i><br/>
+        Zarejestrowane podmioty lecznicze <span class="badge bg-secondary">{{ show }}</span>
+    </a>
+  </div>
+
+    <div style="text-align: center" class="col">
+
+        <a type="button" href="{% url 'struct' %}" class="btn btn-primary btn-lg"> <i  class='bx bxs-home-circle bx-flashing' style='color:#ff0000; font-size: 100px' ></i><br/>
+        Zarejestrowane zakłady lecznicze<span class="badge bg-secondary">{{ show_one}}</span><br/>
+    </a>
+  </div>
+    <div style="text-align: center" class="col">
+
+        <a type="button" href="{% url 'unit' %}" class="btn btn-primary btn-lg"> <i  class='bx bxs-home-heart bx-flashing' style='color:#ff0000; font-size: 100px' ></i><br/>
+        Zarejstrowane jednostki lecznicze <span class="badge bg-secondary">{{ show_two }}</span>
+    </a>
+  </div>
+</div>
+  </div>
+    <br/>
+
+{% endblock content %}

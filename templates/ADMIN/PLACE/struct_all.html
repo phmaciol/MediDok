@@ -1,0 +1,282 @@
+{% extends "ADMIN/Base_admin.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block style %}
+
+{% endblock %}
+{% block navbar %}
+
+<div class="nav_list"> <a href="{% url 'orga_admin' %}" class="nav_link active"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Rejest podmiotu</span> </a>
+                    <a href="{% url 'term_gen' %}" class="nav_link"> <i class='bx bx-plus-medical nav_icon'></i> <span class="nav_name">Generuj terminarz</span> </a>
+                    <a href="{% url 'users_web' %}" class="nav_link"> <i class='bx bxs-user-detail nav_icon'></i> <span class="nav_name">Personel</span> </a>
+
+                    </div>
+{% endblock navbar %}
+{% block content %}
+{% for forset in formset  %}
+
+    </form>
+
+
+    <div class="row">
+            <div class="col -md -12">
+                <div class="modal fade" id="Edit{{ forloop.counter }}">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                               <div class="modal-header">
+                                     <h3>Edycja zakładku leczniczego</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+
+
+                                        {{ forset|crispy }}
+                                        {{ formset.management_form  }}
+
+
+                                 </div>
+                                 <div class="modal-footer">
+<input type="submit" class="btn btn-primary" name="one"  value="Zapisz zmiany">
+                                    </form>
+                            <a class="btn btn-danger" data-dismiss="modal" >Odrzuć zmiany</a>
+                                </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+{% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="container">
+
+
+        <div class="row">
+            <div class="col -md -12">
+                <div class="modal fade" id="myModal2">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                               <div class="modal-header">
+                                    <h1>Zarejestruj zakład leczniczy</h1>
+                                </div>
+                                <div class="modal-body">
+                                        <form method="POST" action="" class="login" enctype="multipart/form-data">
+                                             {% csrf_token %}
+                                                    {{ forms.name.label }}
+                                                    {{ forms.name}}
+                                                    {{ forms.organization.label }}
+                                                    {{ forms.organization }}
+
+                                                    <div class="form-group">
+                                                     <div class="row">
+                                                     <div class="col">
+                                                     {{ forms.city.label }}
+                                                    {{ forms.city }}
+                                                         {{ forms.adress2.label }}
+                                                    {{ forms.adress2 }}
+                                                     </div>
+                                                    <div class="col">
+                                                    {{ forms.adress1.label }}
+                                                    {{ forms.adress1 }}
+                                                    {{ forms.adress3.label }}
+                                                    {{ forms.adress3 }}
+                    </div>
+                </div>
+            </div>
+
+
+                                                    {{ forms.phone.label }}
+                                                    {{ forms.phone }}
+                                                    {{ forms.mail.label }}
+                                                    {{ forms.mail }}
+                                                    {{ forms.type_place.label }}
+                                                    {{ forms.type_place }}
+
+                                                    {{ forms.dekl.label }}
+                                                    {{ forms.dekl }}
+                                                    {{ forms.logo.label }}
+                                                    {{ forms.logo }}
+
+                                            <br/>
+                                            <div class="d-grid gap-2">    <input type="submit" name="two" class="btn btn-success" data-toggle="modal" data-target="#myModal2"  value="Zapisz zmiany"></div>
+
+
+                                        </form>
+                                 </div>
+                                 <div class="modal-footer">
+                            <input class="btn btn-outline-danger" data-dismiss="modal" value="Zamknij"/>
+                                </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+    </div>
+    </br>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="tile-body">
+                <div class="table-responsive">
+                    <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+{#                    ---------#}
+                    <h2 style="text-align: center">Lista Zakładów leczniczych</h2>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2" >Dodaj zakład leczniczy</button>
+{#                        {{ forms.errors }}#}
+                        {% for message in messages %}
+                <p id="message">{{ message }}</p>
+
+            {% endfor %}
+{#                    ---------#}
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                                    <thead>
+                                        <tr role="row">
+                                           <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 151.641px;">Numer</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 317.312px;">Nazwa zakładu leczniczego</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 317.312px;">Podmiot</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 220.281px;">Adres</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 189.281px;"></th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 189.281px;"></th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 189.281px;"></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+
+
+                                         {% for i in show %}
+                                              <div class="row">
+            <div class="col -md -12">
+                <div class="modal fade" id="Delete{{ forloop.counter }}">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                               <div class="modal-header">
+
+                                </div>
+                                <div class="modal-body">
+
+                                            <h3> Czy napewno chcesz usunać {{ i.name }}</h3>
+                                 </div>
+                                 <div class="modal-footer">
+                            <a  href="" class="btn btn-outline-danger" >TAK</a>
+                            <a class="btn btn-outline-success" data-dismiss="modal" >NIE</a>
+                                </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+                                            <tr role="row" class="odd">
+
+
+
+
+
+                                                </td>
+
+                                                 <td class="sorting_1">{{ forloop.counter }}</td>
+                                                <td>{{ i.name }} <br/> <b>Rodzaj:</b>{{ i.get_type_place_display}}</td>
+                                                <td>{{ i.organization.name }}</td>
+                                                <td>{{ i.city }} ul. {{ i.adress1 }} {{ i.adress2 }}/{{ i.adress3 }}</td>
+
+                                                <td><div class="d-grid gap-2">    <a  class="btn btn-success" data-toggle="modal" data-target="#Edit{{ forloop.counter }}" >Edytuj</a></div></td>
+                                                <td><div class="d-grid gap-2">    <a href="{% url 'orga_admin_one_unit' pk=i.id %}" class="btn btn-warning">Szczegóły</a></div></td>
+                                            <td>  <div class="d-grid gap-2">    <a  class="btn btn-danger" data-toggle="modal" data-target="#Delete{{ forloop.counter }}" >Usuń</a></div>
+                                                </td>
+                                            </tr>
+                                               {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"></div>
+  </div>
+</div>
+    <form>
+
+    </form>
+
+{% endblock content %}
+{% block extrascripts %}
+<script type="text/javascript">
+    function limit_input() {
+        var nip = document.getElementById("nip_Edit");
+        var regon = document.getElementById("regon_edit");
+        var krs = document.getElementById("krs_edit");
+
+        var max = 10;
+        var maxe = 9;
+        if (nip.value.length > max) {
+            nip.value = nip.value.slice(0, max);
+        }
+         if (krs.value.length > max) {
+            krs.value = krs.value.slice(0, max);
+        }
+         if (regon.value.length > maxe) {
+            regon.value = regon.value.slice(0, maxe);
+        }
+
+
+    }
+    function limit_input_two() {
+        var phone = document.getElementById("phone_field");
+        var maxe = 9;
+         if (phone.value.length > maxe) {
+            phone.value = phone.value.slice(0, maxe);
+        }
+    }
+</script>
+    <script type="text/javascript" src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/plugins/dataTables.bootstrap.min.js' %}"></script>
+
+    <script type="text/javascript">$('#sampleTable').DataTable();</script>
+
+{% endblock extrascripts %}

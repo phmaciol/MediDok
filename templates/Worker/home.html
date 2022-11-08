@@ -1,0 +1,42 @@
+{% extends "Worker/base.html" %}
+{% load static %}
+{% block style %}
+        <link rel="stylesheet" href="{% static 'style/style02.css' %}">
+
+{% endblock %}
+{% block navbar %}
+
+
+                <div class="nav_list"> <a href="{% url 'showdekl' %}" class="nav_link "> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Deklaracje</span> </a>
+                    <a href="{% url 'add_form' %}" class="nav_link"> <i class='bx bxs-file-plus nav_icon'></i> <span class="nav_name">Dodaj formularz</span> </a>
+                    <a href="{% url 'deklPERS' %}" class="nav_link"> <i class='bx bxs-file-pdf nav_icon' ></i> <span class="nav_name">Formularze</span> </a>
+                    <a href="{% url 'doc_show' %}" class="nav_link"> <i class='bx bxs-file-doc nav_icon' ></i> <span class="nav_name">Dokumenty</span> </a>
+                    <a href="{% url 'visit_per' %}" class="nav_link"> <i class='bx bx-table nav_icon'></i> <span class="nav_name">Rejestr wizyt</span> </a>
+                    <a href="{% url 'editper' %}" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Profil</span> </a>
+                    </div>
+{% endblock navbar %}
+{% block content %}
+    <h1 style="text-align: center; color: #212121"><b>MedikoDOC</b> </h1>
+    <h1 style="text-align: center; color: #212121">Witaj w Panelu Personelu</h1>
+<hr/>
+<div class="form-group">
+<div class="row">
+    <div style="text-align: center" class="col">
+      {%  if show != 0  %}
+    <a type="button" href="{% url 'check_per' %}" class="btn btn-primary"><h1>
+        <i style="font-size: 88px" class='bx bx-user-pin bx-flashing' ></i><br/>Pacjenci do autoryzacji  <span class="badge bg-secondary">{{ show }}</span></h1>
+    </a>
+{% else %}
+    <button type="button" class="btn btn-primary" disabled><h1><i style="font-size: 48px" class='bx bxs-notification-off'></i><br/>
+  Brak pacjentów do autoryzacji  <span class="badge bg-secondary">{{ show }}</h1></span>
+    </button>
+
+{% endif %}
+  </div>
+
+</div>
+
+  </div>
+
+
+{% endblock content %}

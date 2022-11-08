@@ -1,0 +1,65 @@
+{% extends "ADMIN/Base_admin.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block navbar %}
+
+
+                   <div class="nav_list"> <a href="{% url 'orga_admin' %}" class="nav_link"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Rejest podmiotu</span> </a>
+                    <a href="{% url 'term_gen' %}" class="nav_link"> <i class='bx bx-plus-medical nav_icon'></i> <span class="nav_name">Generuj terminarz</span> </a>
+                    <a href="{% url 'users_web' %}" class="nav_link active"> <i class='bx bxs-user-detail nav_icon'></i> <span class="nav_name">Użytkownicy</span> </a>
+
+                    </div>
+{% endblock navbar %}
+{% block content %}
+    <h1 style="text-align: center; color: #212121"><b>MedikoDOC</b> </h1>
+    <h1 style="text-align: center; color: #212121">Zarządzanie użytkownikami</h1>
+
+
+
+
+<form method="post"  enctype="multipart/form-data">
+
+        {%  csrf_token %}
+    {{ form1|crispy }}
+{#     <div class="form-group">#}
+{#<div class="row">#}
+{#    <div class="col">#}
+{#      <label>{{ form1.username.label }}</label>#}
+{#      {{ form1.username }}#}
+{#  </div>#}
+{#   <div class="col">#}
+{#      <label>{{ form1.last_name.label }}</label>#}
+{#      {{ form1.last_name }}#}
+{#  </div>#}
+{#  <div class="col">#}
+{#      <label>{{ form1.first_name.label }}</label>#}
+{#      {{ form1.first_name }}#}
+{#  </div>#}
+{#</div>#}
+{#  </div>#}
+{##}
+{# <div class="form-group">#}
+{#<div class="row">#}
+{#    <div class="col">#}
+{#      <label>{{ form1.password1.label }}</label>#}
+{#      {{ form1.password1 }}#}
+{#  </div>#}
+{#     <div class="col">#}
+{#      <label>{{ form1.password2.label }}</label>#}
+{#      {{ form1.password2 }}#}
+{#  </div>#}
+{#  <div class="col">#}
+{#      <label>{{ form1.email.label }}</label>#}
+{#      {{ form1.email }}#}
+{#  </div>#}
+{##}
+{#</div>#}
+{#  </div>#}
+
+
+
+
+
+  <input type="submit" class="btn btn-primary" value="Dodaj">
+</form>
+{% endblock content %}

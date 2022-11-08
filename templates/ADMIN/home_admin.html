@@ -1,0 +1,52 @@
+{% extends "ADMIN/Base_admin.html" %}
+{% load static %}
+{% block navbar %}
+
+
+                <div class="nav_list"> <a href="{% url 'orga_admin' %}" class="nav_link "> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Rejest podmiotu</span> </a>
+                    <a href="{% url 'term_gen' %}" class="nav_link"> <i class='bx bx-plus-medical nav_icon'></i> <span class="nav_name">Generuj terminarz</span> </a>
+                    <a href="{% url 'users_web' %}" class="nav_link"> <i class='bx bxs-user-detail nav_icon'></i> <span class="nav_name">Personel</span> </a>
+
+                    </div>
+{% endblock navbar %}
+{% block content %}
+    <h1 style="text-align: center; color: #212121"><b>MedikoDOC</b> </h1>
+    <h1 style="text-align: center; color: #212121">Admnistrator</h1>
+
+
+
+
+<br>
+
+<div class="form-group">
+<h2 style="text-align: center; color: #212121">Dostęp</h1>
+<div class="row">
+    <div style="text-align: center" class="col">
+
+   <div class="d-grid gap-2">  <a type="button" href="{% url 'user_person' pk='0' %}" class="btn btn-warning btn-lg">
+        Użytkownicy (pacjenci) <span class="badge bg-secondary">{{ show }}</span>
+   </a></div>
+
+
+
+  </div>
+  <div style="text-align: center" class="col">
+
+    <div class="d-grid gap-2"> <a href="{% url 'user_person' pk='1' %}" type="button" class="btn btn-info btn-lg">
+         Użytkownicy (personel)  <span class="badge bg-secondary">{{ show_user }}</span>
+    </a></div>
+
+  </div>
+<div style="text-align: center" class="col">
+
+   <div class="d-grid gap-2">  <a href="{% url 'user_person' pk='2' %}" type="button" class="btn btn-success btn-lg " >
+        Użytkownicy wszyscy  <span class="badge bg-secondary">{{ show_groups }}</span>
+   </a></div>
+
+  </div>
+</div>
+  </div>
+    <br/>
+
+
+{% endblock content %}

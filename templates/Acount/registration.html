@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pl">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <link rel="stylesheet" href="{% static 'style/login.css' %}">
+</head>
+<body>
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+    <h2 class="active"> Zarejestruj się </h2>
+      <h2 class="inactive underlineHover"><a href="/">Zaloguj się </a> </h2>
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <i class="fa fa-home fa-2x"></i>
+    </div>
+
+    <!-- Login Form -->
+            <form method="POST" action="" class="register">
+         {% csrf_token %}
+
+        <label for="username" class="active">{{ form.username.label }}</label>
+            {{ form.username }}
+                <small style="color: red"   {{ form.username.errors }}</small>
+
+            </br>
+
+        <label for="username" class="active">{{ form.first_name.label }}</label> </br>
+            {{ form.first_name }}
+                <small style="color: red">   {{ form.first_errors}}</small>
+             </br>
+        <label for="username">{{ form.last_name.label }}</label>
+            {{ form.last_name }}
+                <small style="color: red">   {{ form.last_name.errors }}</small>
+             </br>
+        <label for="username">{{ form.email.label }}</label>
+            {{ form.email }}
+           <small style="color: red">{{ form.email.errors }}</small>
+             </br>
+        <label for="password">{{ form.password1.label }}</label> </br>
+            {{ form.password1}}
+                <small style="color: red">{{ form.password1.errors}}</small>
+              </br>
+        <label for="password"> {{ form.password2.label }}</label>
+            {{ form.password2 }}
+                <small style="color: red">{{ form.password2.errors }}</small>
+             </br>
+                {% for message in messages %}
+                <p id="message">{{ message }}</p>
+
+            {% endfor %}
+        <div id="lower">
+            <input type="submit" name="Create User" value="Zarejestruj się"/>
+         </br>
+         </br>
+
+
+{#            <input type="checkbox"><label class="check" for="checkbox">Zapamiętaj mnie!</label>#}
+
+            </div>
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <a class="underlineHover" href="/">Posiadasz już konto? zaloguj się</a>
+    </div>
+
+  </div>
+</div>
+
+</div>
+</body>
+</html>

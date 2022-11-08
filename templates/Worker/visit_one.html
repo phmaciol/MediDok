@@ -1,0 +1,130 @@
+{% extends "Worker/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block style %}
+        <link rel="stylesheet" href="{% static 'style/style02.css' %}">
+
+{% endblock %}
+{% block navbar %}
+
+
+                <div class="nav_list"> <a href="{% url 'showdekl' %}" class="nav_link "> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Deklaracje</span> </a>
+                    <a href="{% url 'add_form' %}" class="nav_link"> <i class='bx bxs-file-plus nav_icon'></i> <span class="nav_name">Dodaj formularz</span> </a>
+                    <a href="{% url 'deklPERS' %}" class="nav_link"> <i class='bx bxs-file-pdf nav_icon' ></i> <span class="nav_name">Formularze</span> </a>
+                    <a href="{% url 'doc_show' %}" class="nav_link"> <i class='bx bxs-file-doc nav_icon' ></i> <span class="nav_name">Dokumenty</span> </a>
+                    <a href="{% url 'visit_per' %}" class="nav_link active"> <i class='bx bx-table nav_icon'></i> <span class="nav_name">Rejestr wizyt</span> </a>
+                    <a href="{% url 'editper' %}" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Profil</span> </a>
+                    </div>
+{% endblock navbar %}
+{% block content %}
+    <br/>
+    <br/>
+    <br/>
+
+
+ <div style="text-align: center"><h1>Pacjent:<i class='bx bx-user-circle' style='color:#0847f0'  ></i> {{ show.patient_person.first_name }} {{ show.patient_person.last_name }}</h1>
+     <h3> Wizyta numer: <b>{{ show.id }} </b><br/>
+
+         {% if show.confirmation == '0' %}
+                <i class='bx bx-minus-circle' style='color:#ff0404'  ></i>
+         {% else %}
+            <i class='bx bxs-check-circle' style='color:#2fff04'  ></i>
+         {% endif %}
+     <form method="post">
+         {% csrf_token %}
+         {{ form|crispy }}
+
+         <br/> Jednostka lecznicza: <b>{{ show.term.work_place.name }}</b>
+         Lekarz: <b>{{ show.term.work_person.first_name  }} {{ show.term.work_person.last_name  }} {{ show.term.work_person.npwz  }}</b> </h3>
+ <hr/>
+     <div class="container">
+  <div class="row">
+    <div class="col-sm">
+        <h4>Dane przekazane przez pacjenta:</h4>
+        <ul>
+            <li> Kod e-skierownia: <b>{{ show.key }}</b></li><br/>
+            <h4>Opis: </h4> <br/><hr/>{{ show.description }}</br>
+        </ul>
+    </div>
+    <div class="col-sm">
+      <h4>Dane wizyty:</h4>
+        <ul>
+            <li><b> {{ forms|crispy }} </b></li>
+            <li><b>{{ formtype|crispy}}</b></li><br/>
+            <li>Data rejestracji: <b>{{ show.dateregister }}</b></li>
+            <li>Data i Godzina Wizyty:
+                <select name="form-0-term" class="select form-control" id="id_form-0-term">
+                {% for x in terms %}
+                <option value="{{ x.id }}">{{ x.work_date }} {{ x.work_time }}</option>
+                {% endfor %}
+            </select></li>
+
+
+        </ul>
+
+                        <div class="d-grid gap-2">  <input type="submit" class="btn btn-success btn-lg btn-block" value="Autoryzuj"></div><br/><br/>
+</form>
+
+
+
+
+    </div>
+    <div class="col-sm">
+        <h4>Dane przekazane od lekarza:</h4>
+            <ul><h6>Rozpoznania:</h6>
+
+                {% for x in idc %}
+                    <li><b>{{ x.kod }}</b> - {{ x.nazwa }}</li>
+                {% endfor %}
+            </ul><hr/>
+           <ul> <h4>Wystawione Recepty:</h4>
+                {% if recCO == 0 %}
+                    <b>Brak wystawionych recept</b>
+            {% else %}
+                {% for y in rec %}
+                    <li> {{ forloop.counter }} <b> {{ y.key_e }}</b></li>
+                {% endfor %}
+            {% endif %}
+            </ul><hr/>
+            <ul><h4>Wystawione Skierowania:</h4>
+                {% if skieCO == 0 %}
+                    <b>Brak wystawionych Skierowań</b>
+            {% else %}
+                {% for xy in skie %}
+                    <li> {{ forloop.counter }} <b> {{ xy.key_e }}</b></li>
+                {% endfor %}
+            {% endif %}
+            </ul><hr/>
+            <ul><h4>Opis lekarz:</h4>
+                {{ show.description_person }}
+            </ul>
+    </div>
+  </div>
+</div>
+
+
+
+ </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock content %}
+{% block extrascripts %}
+
+    <script type="text/javascript" src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/plugins/dataTables.bootstrap.min.js' %}"></script>
+
+    <script type="text/javascript">$('#sampleTable').DataTable();</script>
+{% endblock extrascripts %}

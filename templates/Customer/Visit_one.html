@@ -1,0 +1,134 @@
+
+
+
+
+
+{% extends "base.html" %}
+
+
+
+{% load static %}
+    {% block navbar %}
+
+
+                <div class="nav_list"> <a href="#" class="nav_link "> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Strona Główna</span> </a>
+                    <a href="{% url 'organization' %}" class="nav_link"> <i class='bx bx-plus-medical nav_icon'></i> <span class="nav_name">Zarejestruj wizytę</span> </a>
+                    <a href="{% url 'e_systemREC' %}" class="nav_link active"> <i class='bx bx-capsule nav_icon'></i> <span class="nav_name">Recepty</span> </a>
+                    <a href="{% url 'e_systemSKIER' %}" class="nav_link"> <i class='bx bx-donate-heart nav_icon'></i> <span class="nav_name">Skierowania</span> </a>
+                    <a href="{% url 'visit' %}" class="nav_link"> <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Przegląd wizyt</span> </a>
+                    <a href={% url 'upload' %} class="nav_link "> <i class='bx bx-folder nav_icon'></i> <span class="nav_name">Dokumenty</span> </a>
+                    <a href="{% url 'editprofile' %}" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Profil</span> </a>
+                    </div>
+{% endblock navbar %}
+{% block content %}
+ <div style="text-align: center"><h1>Pacjent:<i class='bx bx-user-circle' style='color:#0847f0'  ></i> {{ show.patient_person.first_name }} {{ show.patient_person.last_name }}</h1>
+     <h3> Wizyta numer: <b>{{ show.id }} </b>
+
+         {% if show.confirmation == '0' %}
+                <i class='bx bx-minus-circle' style='color:#ff0404'  ></i><strong>Niepotwierdzona</strong>
+         {% else %}
+            <i class='bx bxs-check-circle' style='color:#2fff04'  ></i><strong>Potwierdzona</strong>
+         {% endif %}
+         <br/> Jednostka lecznicza: <b>{{ show.term.work_place.name }}</b>
+         Lekarz: <b>{{ show.term.work_person.first_name  }} {{ show.term.work_person.last_name  }} {{ show.term.work_person.npwz  }}</b> </h3>
+ <hr/>
+     <div class="container">
+  <div class="row">
+    <div class="col-sm">
+        <h4>Dane przekazane przez pacjenta:</h4>
+        <ul>
+            <li> Kod e-skierownia: <b>{{ show.key }}</b></li><br/>
+            <h4>Opis: </h4> <br/><hr/>{{ show.description }}</br>
+        </ul>
+    </div>
+    <div class="col-sm">
+      <h4>Dane wizyty:</h4>
+        <ul>
+            <li>Status wizyty: <b>{{ show.get_status_display }}</b></li>
+            <li>Data rejestracji: <b>{{ show.dateregister }}</b></li>
+            <li>Data Wizyty: <b>{{ show.term.work_date }}</b></li>
+            <li>Godzina Wizyty: <b>{{ show.term.work_time }}</b></li>
+            <li>Typ Wizyty: <b>{{ show.get_type_visit_display }}</b></li><br/>
+            {% if show.status == '3' or show.status == '4' %}
+                <div class="d-grid gap-2">  <a href="{%  url 'visitreg' unitpk=show.organization.id perspk=show.term.work_person.id %}" type="button" class="btn btn-success btn-lg btn-block">Umów następną wizytę</a></div><br/><br/>
+                <div class="d-grid gap-2"> <input type="button" class="btn btn-warning btn-lg btn-block" value="Przesuń wizytę" disabled></div><br/><br/>
+
+            <div class="d-grid gap-2"> <button type="button" class="btn btn-danger btn-lg btn-block" disabled>Odwołaj</button></div><br/><br/>
+            {% elif  show.status == '2'  %}
+            <div class="d-grid gap-2"> <button type="button" class="btn btn-success btn-lg btn-block" disabled>Umów następną wizytę</button></div><br/><br/>
+             <div class="d-grid gap-2"> <input type="button" class="btn btn-warning btn-lg btn-block" value="Przesuń wizytę" disabled></div><br/><br/>
+
+            <div class="d-grid gap-2"> <a href="{% url 'cancel' pk=show.id %} " type="button" class="btn btn-danger btn-lg btn-block">Odwołaj</a></div><br/><br/>
+             {% else %}
+            <div class="d-grid gap-2"> <button type="button" class="btn btn-success btn-lg btn-block" disabled >Umów następną wizytę</button></div><br/><br/>
+            <form method="post">
+            {% csrf_token %}
+                <div style="display: none">{{ formterm }}</div>
+                <select name="form-0-term" class="select form-control" id="id_form-0-term">
+                {% for x in terms %}
+                <option value="{{ x.id }}">{{ x.work_date }} {{ x.work_time }}</option>
+                {% endfor %}
+            </select>
+                <div class="d-grid gap-2"> <input type="submit" name="termin" class="btn btn-warning btn-lg btn-block" value="Przesuń wizytę" ></div><br/><br/>
+                </form>
+                <div class="d-grid gap-2"> <a href="{% url 'cancel' pk=show.id %} " type="button" class="btn btn-danger btn-lg btn-block">Odwołaj</a></div><br/><br/>
+            {% endif %}
+
+        </ul>
+
+    </div>
+    <div class="col-sm">
+        <h4>Dane przekazane od lekarza:</h4>
+            <ul><h6>Rozpoznania:</h6>
+
+                {% for x in idc %}
+                    <li><b>{{ x.kod }}</b> - {{ x.nazwa }}</li>
+                {% endfor %}
+            </ul><hr/>
+           <ul> <h4>Wystawione Recepty:</h4>
+                {% if recCO == 0 %}
+                    <b>Brak wystawionych recept</b>
+            {% else %}
+                {% for y in rec %}
+                    <li> {{ forloop.counter }} <b> {{ y.key_e }}</b></li>
+                {% endfor %}
+            {% endif %}
+            </ul><hr/>
+            <ul><h4>Wystawione Skierowania:</h4>
+                {% if skieCO == 0 %}
+                    <b>Brak wystawionych Skierowań</b>
+            {% else %}
+                {% for xy in skie %}
+                    <li> {{ forloop.counter }} <b> {{ xy.key_e }}</b></li>
+                {% endfor %}
+            {% endif %}
+            </ul><hr/>
+            <ul><h4>Opis lekarz:</h4>
+                {{ show.description_person }}
+            </ul>
+    </div>
+  </div>
+</div>
+
+
+ </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock content %}
+{% block extrascripts %}
+
+    <script type="text/javascript"><
+
+{% endblock extrascripts %}

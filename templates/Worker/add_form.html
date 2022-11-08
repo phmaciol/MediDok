@@ -1,0 +1,116 @@
+
+
+
+
+
+{% extends "Worker/base.html" %}
+
+{% load crispy_forms_tags %}
+
+
+{% load static %}
+    {% block navbar %}
+
+
+                <div class="nav_list"> <a href="{% url 'showdekl' %}" class="nav_link "> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Deklaracje</span> </a>
+                    <a href="{% url 'add_form' %}" class="nav_link active"> <i class='bx bxs-file-plus nav_icon'></i> <span class="nav_name">Dodaj formularz</span> </a>
+                    <a href="{% url 'deklPERS' %}" class="nav_link"> <i class='bx bxs-file-pdf nav_icon' ></i> <span class="nav_name">Formularze</span> </a>
+                    <a href="{% url 'doc_show' %}" class="nav_link"> <i class='bx bxs-file-doc nav_icon' ></i> <span class="nav_name">Dokumenty</span> </a>
+                    <a href="{% url 'visit_per' %}" class="nav_link"> <i class='bx bx-table nav_icon'></i> <span class="nav_name">Rejestr wizyt</span> </a>
+                    <a href="{% url 'editper' %}" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Profil</span> </a>
+                    </div>
+{% endblock navbar %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col -md -12">
+                <div class="modal fade" id="myModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                               <div class="modal-header">
+                                    <h1>Dodaj dokument</h1>
+                                </div>
+                                <div class="modal-body">
+                                        <form method="POST" action="" class="login" enctype="multipart/form-data">
+                                             {% csrf_token %}
+                                                {{ form|crispy}}
+                                            <br/>
+
+                                 </div>
+                                 <div class="modal-footer">
+                                              <input type="submit" class="btn btn-outline-info" value="Dodaj dokument">
+                                        </form>
+
+                            <input class="btn btn-outline-danger" data-dismiss="modal" value="Zamknij"/>
+                                </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+    </div>
+    </br>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="tile-body">
+                <div class="table-responsive">
+                    <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                    <input  type="button" class="btn btn-primary" data-toggle="modal"  data-target="#myModal" value="Dodaj dokument">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 261.641px;">Numer</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Nazwa dokumenty</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 102.141px;">Plik</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 102.141px;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+
+
+                                         {% for i in show %}
+                                            <tr role="row" class="odd">
+
+                                                <td class="sorting_1">{{ forloop.counter }}</td>
+                                                <td>{{ i.name }}</td>
+                                                <td><a type="button" class="btn btn-primary" href="/media/{{ i.file }}"> <i class='bx bxs-file-pdf' style='color:#f6f5f5'  ></i>POBIERZ</a> </td>
+
+                                            </tr>
+                                               {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}
+{% block extrascripts %}
+
+    <script type="text/javascript" src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/plugins/dataTables.bootstrap.min.js' %}"></script>
+
+    <script type="text/javascript">$('#sampleTable').DataTable();</script>
+
+{% endblock extrascripts %}

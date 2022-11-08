@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pl">
+{% load static %}
+<head>
+
+    <meta charset="utf-8" />
+{#    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">#}
+{#    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">#}
+    <link rel="stylesheet" href="{% static 'style/login.css' %}">
+
+    <title>login</title>
+</head>
+<body>
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+    <h2 class="active"> Zaloguj się </h2>
+      <h2 class="inactive underlineHover"><a href="/registration">Zarejestruj się</a> </h2>
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <i class="fa fa-home fa-2x"></i>
+    </div>
+
+    <!-- Login Form -->
+    <form method="POST" action="" class="login">
+        {% csrf_token %}
+      <input type="text" id="username" class="fadeIn second" name="username" placeholder="Login">
+      <input type="password" id="password" class="fadeIn third" name="password" placeholder="Hasło">
+      <input type="submit" class="fadeIn fourth" value="Zaloguj">
+        {% for message in messages %}
+                <p id="message">{{ message }}</p>
+
+            {% endfor %}
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <a class="underlineHover" href="#">Zapomniałeś hasła?</a>
+    </div>
+
+  </div>
+</div>
+
+
+
+</body>
+</html>

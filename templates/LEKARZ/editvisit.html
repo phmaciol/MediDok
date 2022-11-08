@@ -1,0 +1,205 @@
+{% extends "LEKARZ/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block style %}
+        <link rel="stylesheet" href="{% static 'style/style02.css' %}">
+
+        <link rel="stylesheet" href="{% static 'style/root.css' %}">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
+{#<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">#}
+<script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+{% endblock %}
+{% block navbar %}
+
+
+                    <a href="{% url 'placeform' %}" class="nav_link active "> <i class='bx bx-plus-medical nav_icon'></i> <span class="nav_name">Mini Gabinet</span> </a>
+                   <a href="{% url 'editlek' %}" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Profil</span> </a>
+
+{% endblock navbar %}
+{% block content %}
+    <br/>
+    <br/>
+  <hr/>    {% for message in messages %}
+                <h3 style="color: red"  id="message">{{ message }}</h3>
+
+            {% endfor %}
+<main>
+
+  <input id="tab1" type="radio" name="tabs" checked>
+  <label for="tab1"><i class='bx bxs-id-card'></i> Dane Pacjenta</label>
+
+  <input id="tab2" type="radio" name="tabs">
+  <label for="tab2"><i class='bx bx-current-location' ></i> Dane Wizyty</label>
+
+  <input id="tab3" type="radio" name="tabs">
+  <label for="tab3"><i class='bx bxs-contact' ></i>Informacje od pacjenta</label>
+
+  <input id="tab4" type="radio" name="tabs">
+  <label for="tab4"> <i class='bx bxs-error-alt'></i> Rozpoznania</label>
+
+    <input id="tab5" type="radio" name="tabs">
+  <label for="tab5"> <i class='bx bxs'></i> Opis wizyt</label>
+
+    <input id="tab6" type="radio" name="tabs">
+  <label for="tab6"> <i class='bx bxs'></i> Recepty i skierowania</label>
+
+
+
+
+  <section style="text-align: center" id="content1">
+    <div style="text-align: center"><h4><i class='bx bx-user-circle' style='color:#0847f0'  ></i><br/>
+        Imię Pacjenta <input type="text" class="form-control" value="{{ show.patient_person.first_name }}" disabled>
+        Nazwisko Pacjenta <input type="text" class="form-control" value="{{ show.patient_person.last_name }}" disabled>
+        Pesel <input type="text" class="form-control" value="{{ show.patient_person.pesel}}" disabled>
+        Data urodzenia <input type="text" class="form-control" value="{{ show.patient_person.date_brith}}" disabled>
+        Numer telefonu <input type="text" class="form-control" value="{{ show.patient_person.phone}}" disabled>
+        E-mail <input type="text" class="form-control" value="{{ show.patient_user.email}}" disabled>
+        </h4>
+
+  </section>
+
+  <section style="text-align: center" id="content2">
+
+     <h3> Wizyta numer: <b>{{ show.id }} </b>Data i Godzina Wizyty: <b>{{ show.term.work_date }} {{ show.term.work_time }}</b><br/>
+
+         {% if show.confirmation == '0' %}
+               Status wizyty <i class='bx bx-minus-circle' style='color:#ff0404'  ></i><b>{{ show.get_confirmation_display }}</b>
+         {% else %}
+            Status wizyty <i class='bx bxs-check-circle' style='color:#2fff04'  ></i><b>{{ show.get_confirmation_display  }}</b>
+         {% endif %}
+
+
+         <br/> Jednostka lecznicza: <b>{{ show.term.work_place.name }}</b><br/>
+         Lekarz: <b>{{ show.term.work_person.first_name  }} {{ show.term.work_person.last_name  }} {{ show.term.work_person.npwz  }}</b><br/>
+         Typ wizyty: <b>{{ show.get_type_visit_display }}</b><br/>
+      Data rejestracji: <b>{{ show.dateregister }}</b>
+
+            </h3>
+      <form method="post">
+            {% csrf_token %}
+            <h3><b>{{ forms|crispy}}</b><br/></h3>
+          <div class="d-grid gap-2">  <input type="submit" name="typ" class="btn btn-success btn-lg btn-block" value="Zmień status wizyty"></div><br/><br/>
+</form>
+  </section>
+
+  <section style="text-align: center" id="content3">
+    <h3>
+
+             Kod e-skierownia pacjenta: <b>{{ show.key }}</b><br/><hr/>
+            <h3>Opis: </h3> <br/>
+        <textarea  class="form-control"  disabled>{{ show.description }}</textarea>
+
+
+        </h3>
+  </section>
+
+  <section style="text-align: center" id="content4">
+      <div style="text-align: center">
+          <h3>
+                <form method="post">
+
+
+                {% csrf_token %}
+                    {{ form2.id10.label }}<br/>
+                     {{ form2.id10}}
+
+
+            </h3>
+          <div class="d-grid gap-2">  <input type="submit" name="roz" class="btn btn-success btn-lg btn-block" value="Autoryzuj rozpoznania"></div><br/><br/>
+          </form>
+
+      </div>
+
+  </section>
+
+  <section style="text-align: center" id="content5">
+      <form method="post">
+          <h3>
+                    {% csrf_token %}
+                    {{ form|crispy }}
+              </h3>
+         <div class="d-grid gap-2">  <input type="submit" name="opis" class="btn btn-success btn-lg btn-block" value="Autoryzuj OPIS"></div><br/><br/>
+                </form>
+
+  </section>
+
+  <section style="text-align: center" id="content6">
+  <div style="text-align: center"><h4>Wystawione skierowania:</h4>
+  {% for c in showskier %}
+                     {{ forloop.counter }} <b> {{ c.key_e }}</b><br/>
+                {% endfor %}
+<form method="post">
+    {% csrf_token %}
+          <h3
+    {{ formskie|crispy}}
+          <div class="d-grid gap-2"><input type="submit" name="skie"  class="btn btn-outline-primary btn-lg btn-block" value="Dodaj Skierowanie"></div>
+          </h3>
+</form>
+      <div style="text-align: center"><h4>Wystawione Recepty:</h4>
+
+                {% for y in showrec %}
+                     {{ forloop.counter }} <b> {{ y.key_e }}</b><br/>
+                {% endfor %}
+
+      <form method="post">
+    {% csrf_token %}
+          <h3
+    {{ formrec|crispy}}
+          <div class="d-grid gap-2"><input type="submit" name="rec"  class="btn btn-outline-primary btn-lg btn-block" value="Dodaj receptę"></div>
+          </h3>
+        </form>
+      </div>
+  </section>
+
+  <section style="text-align: center" id="content7">
+    <div style="text-align: center">  <h4>Wystawione Skierowania:</h4>
+
+                {% for y in showskier %}
+                     {{ forloop.counter }} <b> {{ y.key_e }}</b><br/>
+                {% endfor %}
+
+
+    </div>
+  </section>
+  <section style="text-align: center" id="content8">
+
+
+
+  </section>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock content %}
+{% block extrascripts %}
+<script type="text/javascript">
+$(document).ready(function(){
+
+var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+removeItemButton: true,
+maxItemCount:100,
+searchResultLimit:10,
+renderChoiceLimit:100
+});
+
+
+});
+</script>
+
+
+
+{% endblock extrascripts %}

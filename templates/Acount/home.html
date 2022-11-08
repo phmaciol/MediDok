@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+{% block style %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+{% endblock style %}
+{% load crispy_forms_tags %}
+{% block content %}
+    </br>
+    </br>
+    </br>
+    <h1 style="text-align: center; color: #212121">Twoje dane osobowe</h1></div>
+{% for message in messages %}
+                <p id="message">{{ message }}</p>
+
+            {% endfor %}
+
+<form method="post"  enctype="multipart/form-data">
+
+        {%  csrf_token %}
+
+
+{#--------------------------------------------------------------------#}
+ <div class="form-group">
+<div class="row">
+    <div class="col">
+      <label>{{ form.phone.label }}</label>
+      {{ form.phone }}
+        <small style="color:red">{{ form.phone.errors }}</small>
+
+  </div>
+  <div class="col">
+      <label>{{ form.peselN.label }}</label>
+      {{ form.peselN }}
+
+  </div>
+</div>
+  </div>
+{#--------------------------------------------------------------------#}
+ <div class="form-group">
+<div class="row">
+    <div class="col">
+      <label>{{ form.date_brith.label }}</label>
+      {{ form.date_brith }}
+        <small style="color:red">{{ form.date_brith.errors }}</small>
+  </div>
+  <div class="col" >
+      <fieldset id="showpes">
+          <label>{{ form.pesel.label }}</label>
+      {{ form.pesel}}
+      <small style="color:red">{{ form.pesel.errors }}</small>
+
+      </fieldset>
+
+  </div>
+</div>
+  </div>
+{#--------------------------------------------------------------------#}
+ <div class="form-group" id="show" style="display: none" >
+<div class="row">
+    <div class="col">
+      <label>{{ form.IDname.label }}</label>
+      {{ form.IDname}}
+  </div>
+  <div class="col">
+      <label>{{ form.IDnumber.label }}</label>
+      {{ form.IDnumber}}
+      <small style="color:red">{{ form.IDnumber.errors }}</small>
+  </div>
+</div>
+  </div>
+
+{#--------------------------------------------------------------------#}
+ <div class="form-group">
+<div class="row">
+    <h3>Uzupełnij swoje dane adresowe</h3>
+    <div class="col">
+
+      <label >{{ form.regional_woj.label }}</label>
+      {{ form.regional_woj}}
+    </a>
+  </div>
+ <div class="col">
+      <label>{{ form.regional_city.label }}</label>
+      {{ form.regional_city}}
+  </div>
+</div>
+  </div>
+
+
+{#--------------------------------------------------------------------#}
+ <div class="form-group">
+<div class="row">
+    <div class="col">
+      <label>{{ form.post.label }}</label>
+      {{ form.post}}
+  </div>
+  <div class="col">
+      <label>{{ form.str_name.label }}</label>
+      {{ form.str_name}}
+  </div>
+</div>
+  </div>
+
+{#--------------------------------------------------------------------#}
+ <div class="form-group">
+<div class="row">
+    <div class="col">
+      <label>{{ form.str_number.label }}</label>
+      {{ form.str_number}}
+  </div>
+  <div class="col">
+      <label>{{ form.str_number_one.label }}</label>
+      {{ form.str_number_one}}
+  </div>
+</div>
+  </div>
+    {#--------------------------------------------------------------------#}
+    <label>{{ form.doc.label }}</label>
+      {{ form.doc}}
+    <small id="emailHelp" class="form-text text-muted">Aby kontynować należy uzupełnić dane.</small>
+
+
+
+
+  <input type="submit" class="btn btn-primary" value="Zapisz">
+</form>
+
+{% endblock content %}
+{% block extrascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+{#    <script type="text/javascript">#}
+{#          $(document).ready(function(){#}
+{#              $("peselN").click(#}
+{#                function() {#}
+{#                $("#msg").text($(this).val());#}
+{#                    });#}
+
+    </script>
+    <script type="text/javascript">
+    function limit_input() {
+        var field_pesel = document.getElementById("pesel_field");
+        var field_phone = document.getElementById("phone_field");
+        var max_pesel = 11;
+        var max_phone = 9;
+        if (field_pesel.value.length > max_pesel) {
+            field_pesel.value = field_pesel.value.slice(0, max_pesel);
+        }
+         if (field_phone.value.length > max_phone) {
+            field_phone.value = field_phone.value.slice(0, max_phone);
+        }
+    }
+
+    {#document.getElementById('click').addEventListener("click", show)#}
+    function show(value){
+
+
+        var group = document.getElementById("show");
+        var pesel = document.getElementById("showpes");
+        if (value==0){
+            group.style.display = "none";
+            pesel.style.display = "block";
+        }
+        if (value==1){
+            group.style.display = "block";
+            pesel.style.display = "none";
+        }
+    }
+
+
+
+
+
+</script>
+
+{% endblock extrascripts %}

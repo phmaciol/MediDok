@@ -1,0 +1,59 @@
+
+
+
+
+
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block navbar %}
+
+
+                <div class="nav_list"> <a href="#" class="nav_link "> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Strona Główna</span> </a>
+                    <a href="{% url 'organization' %}" class="nav_link"> <i class='bx bx-plus-medical nav_icon'></i> <span class="nav_name">Zarejestruj wizytę</span> </a>
+                    <a href="{% url 'medicines_add_user' %}" class="nav_link active"> <i class='bx bx-capsule nav_icon'></i> <span class="nav_name">Recepty</span> </a>
+                    <a href="{% url 'editprofile' %}" class="nav_link"> <i class='bx bx-donate-heart nav_icon'></i> <span class="nav_name">Skierowania</span> </a>
+                    <a href="{% url 'visit' %}" class="nav_link  "> <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Przegląd wizyt</span> </a>
+                    <a href="{% url 'upload' %}" class="nav_link"> <i class='bx bx-folder nav_icon'></i> <span class="nav_name">Dokumenty</span> </a>
+                    <a href="{% url 'editprofile' %}" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Profil</span> </a>
+                    </div>
+{% endblock navbar %}
+{% block content %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<div style= "padding-top:80px; margin: auto;">
+<img src="{% static 'image/ulot.jpg' %}" style="width: 350px; margin-left: 38 %" class="card-img-top" alt="...">
+    <center><h4>Id leku:{{ all_med.IdPL }}<br> Nazwa: <b>{{ all_med.namePL }}</b></h4>
+    <span>Nazwa powszechna: <b>{{ all_med.namePL_Pow }}</b></span><br>
+    <span>Moc: <b>{{ all_med.power }}</b></span>
+    <span>Postać farmaceutyczna: <b>{{ all_med.pharmaceutical_form}}</b></span><br>
+    <span>Ważnośc pozwolenia: <b>{{ all_med.importance}}</b></span><br>
+    <span>Typ Procedury: <b>{{ all_med.type_proc}}</b></span><br>
+    <span>Numer Pozwolenia: <b>{{ all_med.importance_number}}<</b></span><br>
+    <span>Numer ATC: <b>{{ all_med.ATC}}</b></span><br>
+    <span>Opakowania: <b>{{ all_med.package}}</b></span><br>
+    <span>Producent: <b>{{ all_med.producer}}</b></span><br>
+    <span>Substancja: <b>{{ all_med.substance}}</b></span><br>
+    <a class="btn btn-primary" href="{{ all_med.ulotka}}">Ulotka</a>
+    <a class="btn btn-primary" href="{{ all_med.charakterystyka}}">Chahrakterystyka</a><br>
+</div>
+
+
+    </center>
+
+
+
+
+
+{% endblock content %}
+{% block extrascripts %}
+
+    <script type="text/javascript" src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/plugins/dataTables.bootstrap.min.js' %}"></script>
+
+    <script type="text/javascript">$('#sampleTable').DataTable();</script>
+
+{% endblock extrascripts %}

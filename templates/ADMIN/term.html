@@ -1,0 +1,92 @@
+{% extends "ADMIN/Base_admin.html" %}
+{% load crispy_forms_tags %}
+{% block navbar %}
+
+  <div class="nav_list"> <a href="{% url 'orga_admin' %}" class="nav_link"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Rejest podmiotu</span> </a>
+                    <a href="{% url 'term_gen' %}" class="nav_link active"> <i class='bx bx-plus-medical nav_icon'></i> <span class="nav_name">Generuj terminarz</span> </a>
+                    <a href="{% url 'users_web' %}" class="nav_link "> <i class='bx bxs-user-detail nav_icon'></i> <span class="nav_name">Użytkownicy</span> </a>
+
+                    </div>
+{% endblock navbar %}
+{% block content %}
+    <h1 style="text-align: center; color: #212121">Generowanie terminarza</h1></div>
+
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+<div class="row">
+    <div class="col">
+      <label>{{ forms.work_place.label }}</label>
+      {{ forms.work_place }}
+  </div>
+  <div class="col">
+      <label>{{ forms.work_person.label }}</label>
+      {{ forms.work_person }}
+  </div>
+</div>
+  </div>
+{#--------------------------------------------------------------------#}
+    <div class="form-group">
+<div class="row">
+    <div class="col">
+      <label>{{ forms.work_type.label }}</label>
+      {{ forms.work_type }}
+  </div>
+  <div class="col">
+      <label>{{ forms.work_day.label }}</label>
+      {{ forms.work_day }}
+  </div>
+</div>
+  </div>
+{#--------------------------------------------------------------------#}
+
+    <div class="form-group">
+<div class="row ">
+    <div class="col">
+      <label>{{ forms.work_start.label }}</label>
+      {{ forms.work_start }}
+  </div>
+  <div class="col">
+      <label>{{ forms.work_stop.label }}</label>
+      {{ forms.work_stop }}
+  </div>
+</div>
+  </div>
+{#--------------------------------------------------------------------#}
+
+    <div class="form-group">
+<div class="row ">
+    <div class="col">
+      <label>{{ forms.work_time.label }}</label>
+      {{ forms.work_time }}
+  </div>
+  <div class="col">
+      <label>{{ forms.work_start_date.label }}</label>
+      {{ forms.work_start_date }}
+  </div>
+  <div class="col">
+      <label>{{ forms.work_stop_date.label }}</label>
+      {{ forms.work_stop_date }}
+  </div>
+</div>
+  </div>
+{#--------------------------------------------------------------------#}
+    <br/>
+    <div style="display: none">
+        {{ forms.work_date}}
+    </div>
+
+    <br/>
+    <div class="d-grid gap-2">    <input type="submit" class="btn btn-primary" value="Generuj"></div>
+</form>
+    {% for message in messages %}
+                <p id="message">{{ message }}</p>
+
+            {% endfor %}
+{% endblock content %}
+{% block extrascripts %}
+    <script type="text/javascript">
+
+
+    </script>
+{% endblock %}

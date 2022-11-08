@@ -1,0 +1,58 @@
+{% extends "Worker/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block style %}
+        <link rel="stylesheet" href="{% static 'style/style02.css' %}">
+
+{% endblock %}
+{% block navbar %}
+
+
+              <div class="nav_list"> <a href="{% url 'showdekl' %}" class="nav_link active "> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Deklaracje</span> </a>
+                    <a href="{% url 'add_form' %}" class="nav_link"> <i class='bx bxs-file-plus nav_icon'></i> <span class="nav_name">Dodaj formularz</span> </a>
+                    <a href="{% url 'deklPERS' %}" class="nav_link"> <i class='bx bxs-file-pdf nav_icon' ></i> <span class="nav_name">Formularze</span> </a>
+                    <a href="{% url 'doc_show' %}" class="nav_link"> <i class='bx bxs-file-doc nav_icon' ></i> <span class="nav_name">Dokumenty</span> </a>
+                    <a href="{% url 'visit_per' %}" class="nav_link"> <i class='bx bx-table nav_icon'></i> <span class="nav_name">Rejestr wizyt</span> </a>
+                    <a href="{% url 'editper' %}" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Profil</span> </a>
+                    </div>
+{% endblock navbar %}
+{% block content %}
+
+
+
+    <h1 style="text-align: center; padding-top: 35px;"> Uzupełnianie deklaracji pacjenta {{ show.idpac.first_name }} {{ show.idpac.last_name }}</h1>
+    <h3 style="text-align: center">Numer deklaracji {{ show.id }}<br/> Do jednostki {{ show.idunit.name }} w zakładzie leczniczym {{ show.idunit.organization.name }}</h3>
+{% for message in messages %}
+                <h3 id="message">{{ message }}</h3>
+
+            {% endfor %}
+
+<form method="post">
+{% csrf_token %}
+
+
+    <select name="iddoc" class="form-select" id="id_iddoc" aria-label="Default select example">
+    <option selected>Wybierz lekarza...</option>
+        {% for x in place %}
+
+  <option value="{{ x.name.id }}">{{ x.name }}</option>
+    {% endfor %}
+</select>
+
+<br/>
+<input type="submit" class="btn btn-info" value="Dodaj lekarza">
+</form>
+
+
+
+
+{% endblock content %}
+{% block extrascripts %}
+
+    <script type="text/javascript" src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/plugins/dataTables.bootstrap.min.js' %}"></script>
+
+    <script type="text/javascript">$('#sampleTable').DataTable();</script>
+
+{% endblock extrascripts %}

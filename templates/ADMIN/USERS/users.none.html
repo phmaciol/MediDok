@@ -1,0 +1,95 @@
+
+
+
+
+{% extends "ADMIN/Base_admin.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load bootstrap %}
+ {% block style %}
+<link rel="stylesheet" href="{% static 'style/root.css' %}">
+
+ {% endblock %}
+
+    {% block navbar %}
+
+
+               <div class="nav_list"> <a href="{% url 'orga_admin' %}" class="nav_link"> <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Rejest podmiotu</span> </a>
+                    <a href="{% url 'term_gen' %}" class="nav_link"> <i class='bx bx-plus-medical nav_icon'></i> <span class="nav_name">Generuj terminarz</span> </a>
+                    <a href="{% url 'users_web' %}" class="nav_link active"> <i class='bx bxs-user-detail nav_icon'></i> <span class="nav_name">Użytkownicy</span> </a>
+
+                    </div>
+    {% endblock navbar %}
+    <!--Container Main start-->
+   {% block content %}
+<h1>Edycja użytkownika bez przypisanej osoby</h1>
+<div style="text-align: center">{% for message in messages %}
+
+                <small style="color: red"  id="message">{{ message}}</small>
+
+
+            {% endfor %}
+    {{ form.errors }}<hr/>
+       {{ forms.errors }}<hr/>
+       {{ form_con.errors }}<hr/>
+       {{ form_con2.errors }}<hr/>
+       {{ formpass.errors }}<hr/>
+       </div>
+       <br/>
+<main>
+
+  <input id="tab1" type="radio" name="tabs" checked>
+  <label for="tab1"><i class='bx bxs-id-card'></i> Dane osobowe</label>
+
+  <input id="tab2" type="radio" name="tabs">
+  <label for="tab2"><i class='bx bx-current-location' ></i> Dane Adresowe</label>
+
+  <input id="tab3" type="radio" name="tabs">
+  <label for="tab3"><i class='bx bxs-contact' ></i> Dane kontaktowe</label>
+
+  <input id="tab4" type="radio" name="tabs">
+  <label for="tab4"> <i class='bx bxs-error-alt'></i> Hasło</label>
+
+  <section id="content1">
+    <form method="post">
+        {% csrf_token %}
+        {{ forms|crispy }}
+        {{ form|crispy }}
+        <div class="d-grid gap-2"> <button type="submit" class="btn btn-outline-success" name="one">Zapisz zmiany</button></div>
+    </form>
+  </section>
+
+  <section id="content2">
+      <form method="post">
+          {% csrf_token %}
+          {{ form_one|crispy }}
+          <div class="d-grid gap-2"> <button type="submit" class="btn btn-outline-success" name="two">Zapisz zmiany</button></div>
+      </form>
+  </section>
+
+  <section id="content3">
+    <form method="post">
+        {% csrf_token %}
+        {{ form_con|crispy }}
+        {{ form_con2|crispy }}
+        <div class="d-grid gap-2"> <button type="submit" class="btn btn-outline-success" name="three">Zapisz zmiany</button></div>
+    </form>
+  </section>
+
+  <section id="content4">
+      <div style="text-align: center">
+          <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{ formpass|crispy }}
+              <br/>
+              <div class="d-grid gap-2"> <button type="submit" class="btn btn-warning" name="four">Zmień hasło</button></div>
+
+          </form>
+      </div>
+
+  </section>
+
+</main>
+{% endblock %}
+
+
